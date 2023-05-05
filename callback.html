@@ -1,22 +1,62 @@
-<!doctype html>
 <html lang="ko">
 <head>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
+<!-- 네이버 로그인 버튼 노출 영역 -->
+<link rel="stylesheet" href="./style.css" />
+<div class="container">
+	<a href="https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=8gZDD8d1HN3hrvFFvKlJ&client_secret=aiArPVSq6A&access_token=AAAANzQGuGIPMSkjyA4jes0fU38EPV-UQNFzQ8e7GrLuyxAs1PSAgxnr5BwSWOqLWNRMxxcU-D2XfWakMWFit5m1V5s&state=763af1d2-f556-4f71-af0c-e775a904cd27&service_provider=NAVER"><img src="btnW_로그아웃.png" width="70%"></a>        
+    <div class="login-area">
+      </div>
+      <div id="button_area">
+        <div id="naver_id_login"></div>
+		<div id="naver_id_logout"></div>
+      </div>
+    </div>
+  </div>
+<!-- //네이버 로그아웃 버튼 노출 영역 -->
+
+
+
+<!-- //네이버 로그인 버튼 노출 영역 -->
+<!-- 네이버아디디로로그인 초기화 Script -->
 <script type="text/javascript">
-  var naver_id_login = new naver_id_login("8gZDD8d1HN3hrvFFvKlJ", "http://localhost:5500/login");
-  // 접근 토큰 값 출력
-  alert(naver_id_login.oauthParams.access_token);
-  // 네이버 사용자 프로필 조회
-  naver_id_login.get_naver_userprofile("naverSignInCallback()");
-  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-  function naverSignInCallback() {
-    alert(naver_id_login.getProfileData('email'));
-    alert(naver_id_login.getProfileData('nickname'));
-    alert(naver_id_login.getProfileData('age'));
-  }
+	var naver_id_login = new naver_id_login("8gZDD8d1HN3hrvFFvKlJ", "http://127.0.0.1:5500/callback.html");
+	var state = naver_id_login.getUniqState();
+	naver_id_login.setButton("white", 6,60);
+	naver_id_login.setDomain(".service.com");
+	naver_id_login.setState(state);
+	naver_id_login.setPopup();
+	naver_id_login.init_naver_id_login();
 </script>
+<!-- //네이버아디디로로그인 초기화 Script -->
+<script type="text/javascript">
+	var naver_id_logout = new naver_id_logout("8gZDD8d1HN3hrvFFvKlJ", "http://127.0.0.1:5500/callback.html");
+	var state = naver_id_logout.getUniqState();
+	naver_id_logout.setButton("white", 6,20);
+	naver_id_logout.setDomain(".service.com");
+	naver_id_logout.setState(state);
+	naver_id_logout.setPopup();
+	naver_id_logout.init_naver_id_login();
+</script>
+
+<!-- 네이버아디디로로그인 Callback페이지 처리 Script -->
+<script type="text/javascript">
+	// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+	function naverSignInCallback() {
+		// naver_id_login.getProfileData('프로필항목명');
+		// 프로필 항목은 개발가이드를 참고하시기 바랍니다.
+		alert(naver_id_login.getProfileData('email'));
+		alert(naver_id_login.getProfileData('nickname'));
+		alert(naver_id_login.getProfileData('age'));
+	}
+
+
+	// 네이버 사용자 프로필 조회
+	naver_id_login.get_naver_userprofile("naverSignInCallback()");
+</script>
+<!-- //네이버아디디로로그인 Callback페이지 처리 Script -->
 </body>
 </html>
